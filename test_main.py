@@ -78,3 +78,13 @@ def test_read_user_not_found(client):
     response = client.get("/users/999")  # Assuming user ID 999 does not exist
     assert response.status_code == 404
     assert response.json() == {"detail": "User not found"}
+
+
+def test_create_user_invalid_email(client):
+    invalid_emails = ["test.com", "test@", "@test.com", "plainaddress"]
+    for email in invalid_emails:
+        response = client.post(
+            "/users/",
+            json={"name": "Test User", "email": email},
+        )
+        assert response.status_code == 422
