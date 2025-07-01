@@ -1,7 +1,8 @@
 from sqlalchemy import Column, Integer, String
-from .database import Base
+import database
+from database import Base # Add this import
 
-class User(Base):
+class User(Base): # Now User can inherit from Base
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
